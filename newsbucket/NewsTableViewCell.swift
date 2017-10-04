@@ -10,9 +10,14 @@ import UIKit
 
 class NewsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var img_news: UIImageView!
+    @IBOutlet weak var txt_date: UILabel!
+    @IBOutlet weak var txt_title: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
