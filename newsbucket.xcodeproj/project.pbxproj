@@ -58,16 +58,40 @@
 		04908B021F7F8DE6005B4F09 /* newsbucket */ = {
 			isa = PBXGroup;
 			children = (
+				04CB633F1F85755400417F6E /* helpers */,
+				04CB633E1F85754800417F6E /* views */,
+				04CB633D1F8574FF00417F6E /* controllers */,
 				04908B031F7F8DE6005B4F09 /* AppDelegate.swift */,
-				04908B051F7F8DE6005B4F09 /* ViewController.swift */,
 				04908B071F7F8DE6005B4F09 /* Main.storyboard */,
 				04908B0A1F7F8DE6005B4F09 /* Assets.xcassets */,
 				04908B0C1F7F8DE6005B4F09 /* LaunchScreen.storyboard */,
 				04908B0F1F7F8DE6005B4F09 /* Info.plist */,
-				041429A41F83FEED00DD4D15 /* NewsTableViewController.swift */,
-				041429A61F84020500DD4D15 /* NewsTableViewCell.swift */,
 			);
 			path = newsbucket;
+			sourceTree = "<group>";
+		};
+		04CB633D1F8574FF00417F6E /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				04908B051F7F8DE6005B4F09 /* ViewController.swift */,
+				041429A41F83FEED00DD4D15 /* NewsTableViewController.swift */,
+			);
+			name = controllers;
+			sourceTree = "<group>";
+		};
+		04CB633E1F85754800417F6E /* views */ = {
+			isa = PBXGroup;
+			children = (
+				041429A61F84020500DD4D15 /* NewsTableViewCell.swift */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		04CB633F1F85755400417F6E /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
