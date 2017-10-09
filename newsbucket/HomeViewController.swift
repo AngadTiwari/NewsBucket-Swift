@@ -20,7 +20,7 @@ extension UIImageView{
     }
 }
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarDelegate  {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarDelegate  {
 
     @IBOutlet weak var menuToggleBtn: UIBarButtonItem!
     @IBOutlet weak var navBar: UINavigationItem!
@@ -28,6 +28,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var sidemenuTableView: UITableView!
     @IBOutlet weak var newslistTableView: UITableView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sidemenu: UIView!
     
     var isMenuOpen = false
     var selectedNewsSource = "bbc-news"
@@ -36,10 +38,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let news_source = ["bbc-news", "bloomberg", "buzzfeed", "cnn", "espn", "google-news", "the-economist", "the-times-of-india"]
     
     var news_data: NSArray = []
-    
-    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var sidemenu: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +49,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.sidemenuTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
         self.bottomTabBar.selectedItem = self.bottomTabBar.items![0] as UITabBarItem
         self.getNewsDataForCategory(selectedNewsSource, self.bottomTabBar.selectedItem!.title)
-        
     }
     
     @IBAction func onMenuClick(_ sender: Any) {
@@ -87,9 +84,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let url = news["urlToImage"] as? String
                 let date = news["publishedAt"] as? String
                 
-                cell.txt_title?.text = "\(title!)"
-                cell.txt_date?.text = "Published Date: \(date!)"
-                cell.img_news?.setImageFromURl(stringImageUrl: "\(url!)")
+                if (url != nil) {
+                    cell.img_news?.setImageFromURl(stringImageUrl: "\(url!)")
+                }
+                cell.txt_title?.text = (title != nil ? "\(title!)" : "Not Available")
+                cell.txt_date?.text = (date != nil ? "Published Date: \(date!)" : "Published Date: Not Available")
             }
             
             return cell
@@ -148,6 +147,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     }
                 }
                 task.resume()
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is DetailViewController {
+            let index = self.newslistTableView.indexPath(for: sender as! NewsTableViewCell)
+            
+            if let news = self.news_data[index!.row] as? [String:Any] {
+                let vc = segue.destination as? DetailViewController
+                
+                let url = news["urlToImage"] as? String
+                let author = news["author"] as? String
+                let date = news["publishedAt"] as? String
+                let description = news["description"] as? String
+                let title = news["title"] as? String
+                
+                vc?.IMAGE_URL = "\(url!)"
+                vc?.AUTHOR = "\(author!)"
+                vc?.DATE = "\(date!)"
+                vc?.DESCRIPTION = "\(description!)"
+                vc?.TITLE = "\(title!)"
             }
         }
     }
